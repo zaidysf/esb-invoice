@@ -76,6 +76,25 @@
                         </a>
                     </li>
 
+                    <li class="sidebar-header">
+                        API (Testing Purpose Only)
+                    </li>
+
+                    <li class="sidebar-item {{ (Request::is('api/invoices') ? 'active' : '') }}">
+                        <a class="sidebar-link" target="_blank" href="{{ url('api/invoices/') }}">
+                            <i class="align-middle" data-feather="sliders"></i> <span
+                                class="align-middle">All Invoices</span>
+                        </a>
+                    </li>
+
+                    @php $invoice_id = App\Models\Invoice::first()->id @endphp
+                    <li class="sidebar-item {{ (Request::is('api/invoices/*') ? 'active' : '') }}">
+                        <a class="sidebar-link" target="_blank" href="{{ url('api/invoices/'.$invoice_id) }}">
+                            <i class="align-middle" data-feather="sliders"></i> <span
+                                class="align-middle">Invoice with ID {{ $invoice_id }}</span>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </nav>

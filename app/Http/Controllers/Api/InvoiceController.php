@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Invoice as ResourcesInvoice;
+use App\Http\Resources\InvoiceCollection;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -16,7 +18,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        return Invoice::with(['invoice_items', 'client'])->get();
+        return new InvoiceCollection(Invoice::with(['invoice_items', 'client'])->paginate(10));
     }
 
     /**
@@ -53,7 +55,7 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        return Invoice::where('id', $id)->with(['invoice_items', 'client'])->first();
+        return new ResourcesInvoice(Invoice::findOrFail($id));
     }
 
     /**
